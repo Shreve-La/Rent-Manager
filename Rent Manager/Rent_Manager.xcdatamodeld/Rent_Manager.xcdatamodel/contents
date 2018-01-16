@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17C205" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Event" representedClassName="Event" syncable="YES" codeGenerationType="class">
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+    </entity>
     <entity name="Invoices" representedClassName="Invoices" syncable="YES" codeGenerationType="class">
         <attribute name="dateCreated" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="rentDue" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="rentPaid" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="tenantInvoices" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tenant" inverseName="tenantsInvoices" inverseEntity="Tenant" syncable="YES"/>
     </entity>
     <entity name="Tenant" representedClassName="Tenant" syncable="YES" codeGenerationType="class">
         <attribute name="dateCreated" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
@@ -13,12 +17,13 @@
         <attribute name="isActive" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="phoneNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <relationship name="tenantsInvoices" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Invoices" syncable="YES"/>
+        <relationship name="tenantsInvoices" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Invoices" inverseName="tenantInvoices" inverseEntity="Invoices" syncable="YES"/>
     </entity>
     <fetchRequest name="FetchActiveTenants" entity="Tenant" predicateString="isActive == 0"/>
     <fetchRequest name="FetchAllTenants" entity="Tenant" predicateString="dateCreated &gt; CAST(-31553629.426109, &quot;NSDate&quot;)"/>
     <elements>
-        <element name="Invoices" positionX="484" positionY="243" width="128" height="88"/>
+        <element name="Invoices" positionX="484" positionY="243" width="128" height="103"/>
         <element name="Tenant" positionX="252" positionY="144" width="128" height="148"/>
+        <element name="Event" positionX="369" positionY="216" width="128" height="60"/>
     </elements>
 </model>
